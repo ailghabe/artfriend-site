@@ -1,0 +1,774 @@
+/* ==== GLOBAL STYLES & RESET ==== */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+:root {
+    --bg-color: #121212; /* أسود غامق جدًا للخلفية الرئيسية */
+    --surface-color: #1e1e1e; /* لون للأسطح البارزة قليلاً مثل الكروت */
+    --primary-text-color: #e0e0e0; /* لون النص الأساسي (أبيض فاتح) */
+    --secondary-text-color: #a0a0a0; /* لون النص الثانوي (رمادي فاتح) */
+    --accent-color: #E90052; /* فوشيا من الشعار */
+    --accent-hover-color: #c70047; /* فوشيا أغمق للهوفر */
+    --border-color: #333333; /* لون للحدود الخفيفة */
+    --white-color: #ffffff;
+    --black-color: #000000;
+
+    --font-family-base: 'Cairo', sans-serif;
+    --header-height: 80px; /* ارتفاع الهيدر لتعويض المسافة */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base font size for rem units */
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    line-height: 1.7;
+    direction: rtl; /* Right-to-left */
+    overflow-x: hidden; /* لمنع أي تجاوز أفقي غير مرغوب */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--white-color);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; color: var(--accent-color); margin-bottom: 1.5rem;}
+h3 { font-size: 1.6rem; margin-bottom: 1rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--secondary-text-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+    color: var(--accent-hover-color);
+    text-decoration: none; /* يمكن إضافة underline إذا أردت */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+section {
+    padding: 60px 0;
+}
+
+.section-intro {
+    font-size: 1.1rem;
+    color: var(--secondary-text-color);
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto; /* توسيط النص التقديمي */
+    text-align: center;
+}
+
+.icon-heading {
+    margin-right: 10px;
+    font-size: 0.9em; /* أصغر قليلاً من النص الرئيسي للعنوان */
+}
+.icon-subheading {
+    margin-left: 8px;
+    color: var(--accent-color);
+}
+
+
+/* ==== HEADER STYLES ==== */
+#main-header {
+    background-color: rgba(30, 30, 30, 0.85); /* خلفية شبه شفافة للهيدر */
+    backdrop-filter: blur(10px); /* تأثير بلور للخلفية (إذا كانت الخلفية الرئيسية صورة أو معقدة) */
+    border-bottom: 1px solid var(--border-color);
+    position: fixed; /* تثبيت الهيدر في الأعلى */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* لضمان بقائه فوق العناصر الأخرى */
+    height: var(--header-height);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add a class for scrolled header styling if needed via JS */
+#main-header.scrolled {
+    background-color: var(--surface-color); /* يصبح معتم أكثر عند التمرير */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+#main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.logo-link img {
+    height: 50px; /* Adjust as needed */
+    transition: transform 0.3s ease;
+}
+.logo-link:hover img#main-logo,
+.logo-link:hover img#white-logo {
+    transform: scale(1.05);
+}
+
+/* Logic for white logo to be handled by CSS (e.g. if header bg is dark) or JS */
+/* For now, always show main logo if dark theme base */
+/* #main-header.dark-background #main-logo { display: none; } */
+/* #main-header.dark-background #white-logo { display: block; } */
+
+
+#main-nav ul {
+    display: flex;
+}
+
+#main-nav li {
+    margin-right: 25px; /* مسافة بين عناصر القائمة */
+}
+#main-nav li:last-child {
+    margin-right: 0;
+}
+
+#main-nav .nav-link {
+    color: var(--primary-text-color);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 0;
+    position: relative;
+    text-transform: uppercase; /* حروف كبيرة إذا أردت */
+}
+
+#main-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease-in-out;
+}
+
+#main-nav .nav-link:hover::after,
+#main-nav .nav-link.active::after { /* Add .active class via JS for current section */
+    width: 100%;
+}
+#main-nav .nav-link.contact-anchor {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+#main-nav .nav-link.contact-anchor:hover {
+    background-color: var(--accent-hover-color);
+    color: var(--white-color);
+}
+#main-nav .nav-link.contact-anchor::after {
+    display:none; /* No underline for button-like link */
+}
+
+
+#mobile-menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    color: var(--white-color);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* ==== HERO SECTION ==== */
+#hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.ibb.co/Lh2Byd01/brown-paper-text-space.jpg') no-repeat center center/cover; /* مثال لخلفية، استبدل بالصورة المناسبة أو اتركها لون */
+    min-height: 100vh; /* ليأخذ كامل ارتفاع الشاشة */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--header-height); /* تعويض ارتفاع الهيدر المثبت */
+    position: relative;
+    color: var(--white-color);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 3.5rem; /* أكبر من العناوين العادية */
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* ظل للنص ليبرز */
+}
+
+.hero-tagline {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: var(--primary-text-color); /* أخف من الأبيض النقي */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    border: 2px solid transparent;
+}
+
+.primary-cta {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+}
+.primary-cta:hover {
+    background-color: var(--accent-hover-color);
+    transform: translateY(-3px); /* حركة خفيفة للأعلى عند الهوفر */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: var(--white-color);
+}
+
+.secondary-cta {
+    background-color: transparent;
+    color: var(--white-color);
+    border: 2px solid var(--accent-color);
+}
+.secondary-cta:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.cta-button i {
+    margin-left: 8px;
+}
+
+
+/* ==== ABOUT SECTION ==== */
+#about {
+    background-color: var(--surface-color); /* لون مختلف قليلاً لهذا القسم */
+}
+#about h2 {
+    text-align: center; /* توسيط عنوان القسم */
+}
+.contact-section-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* للسماح بالالتفاف في الشاشات الصغيرة */
+    gap: 30px; /* مسافة بين العناصر الفرعية */
+    margin-bottom: 2rem;
+}
+.contact-details-wrapper, .social-media-wrapper {
+    flex: 1; /* ليأخذ كل جزء مساحة متساوية */
+    min-width: 300px; /* حد أدنى للعرض قبل الالتفاف */
+    background-color: var(--bg-color); /* خلفية أغمق قليلاً لتمييزها */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.contact-details-wrapper h3, .social-media-wrapper h3, .branches-wrapper h3 {
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    display: inline-block; /* لجعل الخط السفلي يقتصر على النص */
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-list .contact-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+.icon-contact {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-left: 15px; /* مسافة الأيقونة عن النص */
+    width: 30px; /* لتوحيد محاذاة النصوص */
+    text-align: center;
+}
+.contact-label {
+    font-weight: 600;
+    margin-left: 5px;
+    color: var(--white-color);
+}
+.contact-link {
+    color: var(--primary-text-color);
+}
+.contact-link:hover {
+    color: var(--accent-color);
+}
+
+.social-media-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.social-media-item .social-link {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color); /*  */
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.social-media-item .social-link:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+}
+.icon-social {
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+.social-text {
+    font-weight: 600;
+}
+.social-link.facebook:hover { background-color: #1877F2; }
+.social-link.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); color: white;}
+
+
+.branches-wrapper {
+    margin-top: 2rem;
+}
+.branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+.branch-item {
+    background-color: var(--bg-color);
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.branch-icon-wrapper {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+.branch-item h4 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+.map-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 8px 15px;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    font-weight: 600;
+}
+.map-link:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+}
+
+
+/* ==== TECHNOLOGIES SECTION ==== */
+#technologies h2 {
+    text-align: center;
+}
+.technology-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* لإنشاء أعمدة متجاوبة */
+    gap: 30px;
+}
+
+.technology-item {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    overflow: hidden; /* لقص الصورة داخل الحدود الدائرية إذا لزم الأمر */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Modified for side-by-side image and text (initial thought) */
+    flex-direction: column; /* Default stack, can be changed */
+}
+.technology-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(var(--accent-color), 0.15);
+}
+/* For side-by-side effect (Target this with a class or specific selector if needed) */
+/* For a specific "side-by-side filling page" look, this would need more complex styling and likely JS for true "filling page animation" */
+.technology-item.side-view { /* Example for a potential class */
+    flex-direction: row;
+    align-items: center;
+}
+.technology-item.side-view .technology-image-container {
+    flex: 0 0 50%; /* Image takes 50% width */
+    max-width: 50%;
+}
+.technology-item.side-view .technology-info {
+    flex: 1;
+    padding: 20px;
+}
+
+.technology-image-container img {
+    width: 100%;
+    height: 250px; /* ارتفاع ثابت للصور مبدئيًا */
+    object-fit: cover; /* لتغطية المساحة المتاحة دون تشويه */
+}
+.technology-info {
+    padding: 25px;
+}
+.technology-info h3 {
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+}
+
+/* ==== MATERIALS SECTION ==== */
+#materials h2, #materials h3 {
+    text-align: center;
+}
+#materials .material-category h3 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* المسافة بين العناصر */
+}
+
+.material-item {
+    background-color: var(--surface-color);
+    padding: 20px;
+    border-radius: 10px; /* حواف دائرية للعنصر */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.material-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.material-image-clipper {
+    width: 150px; /* عرض الدائرة */
+    height: 150px; /* ارتفاع الدائرة */
+    border-radius: 50%; /* لجعلها دائرية تمامًا */
+    overflow: hidden; /* لإخفاء أجزاء الصورة خارج الدائرة */
+    margin: 0 auto 1.5rem auto; /* لتوسيط الدائرة */
+    border: 3px solid var(--accent-color); /* إطار بلون التمييز */
+    box-shadow: 0 0 15px rgba(var(--accent-color), 0.3);
+}
+.material-image-clipper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لتغطية الدائرة بالكامل مع الحفاظ على النسبة */
+    transition: transform 0.4s ease;
+}
+.material-item:hover .material-image-clipper img {
+    transform: scale(1.1); /* تكبير الصورة داخل الدائرة عند الهوفر */
+}
+
+.material-item h4 {
+    color: var(--white-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+.material-item p {
+    font-size: 0.9rem;
+    min-height: 60px; /* لتوحيد ارتفاع النصوص قليلاً */
+}
+.weights-title {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem !important; /* Overriding p margin */
+    color: var(--primary-text-color);
+}
+.weights-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 0.5rem;
+}
+.weights-list li {
+    background-color: var(--bg-color);
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+}
+.sample-link-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 8px 18px;
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+.sample-link-button:hover {
+    background-color: var(--accent-hover-color);
+    color: var(--white-color);
+}
+.sample-link-button i {
+    margin-right: 5px; /* For RTL */
+}
+
+.paper-sizes-info {
+    margin-top: 3rem;
+    background-color: var(--surface-color);
+    padding: 25px;
+    border-radius: 8px;
+}
+.paper-sizes-info h4 { text-align: center; margin-bottom: 1.5rem;}
+.paper-sizes-columns {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.paper-sizes-columns h5 { color: var(--accent-color); }
+.paper-sizes-columns ul li {
+    padding: 3px 0;
+    font-size: 0.95rem;
+    color: var(--secondary-text-color);
+}
+
+/* ==== PORTFOLIO SECTION ==== */
+#portfolio {
+    background-color: var(--bg-color); /* Slight variation if needed */
+}
+#portfolio h2 { text-align: center; }
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.portfolio-image-container img {
+    width: 100%;
+    height: 250px; /* Adjust as needed */
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+.portfolio-item:hover .portfolio-image-container img {
+    transform: scale(1.08);
+    filter: brightness(0.7); /* تعتيم الصورة قليلاً لإبراز النص */
+}
+.portfolio-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    color: var(--white-color);
+    padding: 30px 15px 15px 15px; /* مساحة أكبر من الأسفل */
+    transform: translateY(100%); /* إخفاء النص أسفل الصورة */
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.portfolio-item:hover .portfolio-caption {
+    transform: translateY(0);
+    opacity: 1;
+}
+.portfolio-caption p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+
+/* ==== DESIGN SERVICES SECTION ==== */
+#design-services {
+    background-color: var(--surface-color);
+    text-align: center;
+}
+
+
+/* ==== FOOTER ==== */
+#main-footer {
+    background-color: var(--black-color); /* أسود كامل للتذييل */
+    color: var(--secondary-text-color);
+    padding: 40px 0 20px 0;
+    text-align: center;
+}
+.footer-top {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+.footer-contact-quick h4, .footer-social h4 {
+    color: var(--white-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+.footer-contact-quick p {
+    margin-bottom: 8px;
+}
+.footer-contact-quick a, .footer-social a {
+    color: var(--secondary-text-color);
+    transition: color 0.3s ease;
+}
+.footer-contact-quick a:hover, .footer-social a:hover {
+    color: var(--accent-color);
+}
+.footer-social a {
+    font-size: 1.8rem;
+    margin: 0 10px;
+}
+.footer-bottom p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+.dev-credit {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; /* Changed to right for LTR convention but visual sense might be right for RTL too */
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    opacity: 0; /* Hidden by default, show with JS */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+}
+#back-to-top:hover {
+    background-color: var(--accent-hover-color);
+}
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ==== RESPONSIVE DESIGN ==== */
+@media (max-width: 992px) {
+    .container {
+        width: 95%;
+    }
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 2rem; }
+    .hero-title { font-size: 3rem; }
+    .hero-tagline { font-size: 1.1rem; }
+
+    .contact-section-wrapper {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    html { font-size: 15px; } /* تقليل حجم الخط الأساسي قليلاً */
+
+    #main-nav {
+        display: none; /* إخفاء القائمة الرئيسية */
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--surface-color); /* خلفية للقائمة المنسدلة */
+        padding: 1rem 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+    #main-nav.active { /* كلاس يضاف بالـ JS لفتح القائمة */
+        display: flex;
+    }
+    #main-nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    #main-nav li {
+        margin-right: 0;
+        text-align: center;
+    }
+    #main-nav .nav-link {
+        display: block;
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--border-color);
+    }
+     #main-nav .nav-link::after { display: none; } /* إخفاء الخط السفلي في الموبايل */
+     #main-nav .nav-link.contact-anchor {
+        margin: 10px 15%;
+     }
+
+
+    #mobile-menu-toggle {
+        display: block; /* إظهار أيقونة المنيو */
+    }
+
+    .hero-title { font-size: 2.5rem; }
+    .cta-button { padding: 10px 20px; font-size: 0.9rem;}
+
+    .technology-grid, .materials-grid, .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* عمود واحد أو عمودين حسب المساحة */
+        gap: 20px;
+    }
+    .material-image-clipper { width: 120px; height: 120px;}
+
+    .footer-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-contact-quick, .footer-social {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    html { font-size: 14px; }
+    .hero-title { font-size: 2rem; }
+    .section-intro { font-size: 1rem; }
+    h2 { font-size: 1.8rem; }
+
+    .materials-grid {
+        grid-template-columns: 1fr; /* عمود واحد دائمًا */
+    }
+    .paper-sizes-columns { flex-direction: column; }
+}
